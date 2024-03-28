@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2> This is my first Test Form </h2>
+
+<form action="{% url 'polls:test_form' %}" method="post">
+    
+    {% csrf_token %}
+    
+    <!-- the context value is the HTML itself of the form!! -->
+    {{ test_form }}
+    
+    <input type="submit" value="Submit">
+
+</form>
+
+<h3> This is below the form - HTMX version? </h3>
+
+<!-- the name field is what drives validation -->
+
+<form hx-post="{% url 'polls:test_form' %}" hx-trigger="clicked" class="space-y-4"  hx-target="#message">
+
+    {% csrf_token %}
+
+    <div class="flex items-center space-x-2">
+        <label for="name" class="block">Name:</label>
+        <input type="text" name="name" size="100" placeholder="Name" required class="block">
+    </div>
+    
+    <div class="flex items-center space-x-2">
+        <label for="email" class="block">Email:</label>
+        <input type="email" name="email" size="100" placeholder="Email" required class="block">
+    </div>
+    
+    <div class="flex items-center space-x-2">
+        <label for="message">HTMX Message:</label>
+        <input type="text", name="message" size="40" placeholder="Message" required>
+    </div>
+    
+    <div class="flex items-center space-x-2">
+        <label for="cc_myself">HTMX Send a copy to yourself</label>
+        <input type="checkbox" name="cc_myself">
+    </div>
+
+    <div class="flex items-center space-x-2">
+        <label for="age">HTMX Age:</label>
+        <input type="number" name="age" min="0" max="100" required>
+    </div>
+
+    <input type="submit" value="Submit">
+</form>
+<div id="message"></div>
+
+
+{% endblock content %}

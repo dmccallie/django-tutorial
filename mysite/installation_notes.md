@@ -20,3 +20,36 @@ Notes:
 1. admin/mccallie for superuser for now
 
 
+Install pytailwindcss which places an executable `tailwindcss` in the path
+```
+pip install pytailwindcss
+```
+
+Copy and edit the tailwind config file from main tailwindcss site and paste into root of project
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+      './**/templates/**/*.{html,js}',
+  ],
+  theme: {
+      extend: {},
+  },
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+  ],
+}
+```
+
+Create a monitoring command that runs in separate terminal to apply TW classes
+```bash
+❯ tailwindcss --input ./polls/static/polls/css/input.css --output ./polls/static/polls/css/output.css  --watch
+```
+
+In the templates, refer to this via:
+```html
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'polls/css/output.css' %}">
+```

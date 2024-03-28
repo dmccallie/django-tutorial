@@ -1,0 +1,20 @@
+{% load django_htmx %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Default Title From Base Template{% endblock title %}</title>
+     
+    {% load static %}
+    <script src="{% static 'js/htmx.min.js' %}" defer></script>
+    {% django_htmx_script %}
+    
+    <!-- load tailwindscss here??? -->
+    <link rel="stylesheet" href="{% static 'polls/css/output.css' %}">
+
+</head>
+<body>
+    {% block content %}{% endblock content %}
+</body>
+</html>
